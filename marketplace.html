@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marketplace – GreenSwap</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-green-50 text-gray-800 font-sans p-6">
+  <!-- Navbar -->
+  <header class="bg-green-600 text-white p-4 flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">🌱 GreenSwap Marketplace</h1>
+    <nav>
+      <a href="/" class="px-3 hover:underline">Home</a>
+      <a href="/register-page" class="px-3 hover:underline">Join</a>
+      <a href="/profile-page" class="px-3 hover:underline">Profile</a>
+    </nav>
+  </header>
+
+  <h2 class="text-3xl font-bold mb-4">Available Items</h2>
+
+  <!-- Search Bar -->
+  <input 
+    type="text" 
+    id="searchBar" 
+    placeholder="Search items..." 
+    class="w-full mb-6 p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+  />
+
+  <div id="itemsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+
+  <script>
+    let allItems = [];
+
+    fetch("/api/items")
+      .then(res => res.json())
+      .then(items => {
+        allItems = items; // store all items
+        displayItems(items);
+      });
+
+    function displayItems(items) {
+      const grid = document.getElementById("itemsGrid");
+      grid.innerHTML = ""; // clear existing items
+      items.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "bg-white p-4 rounded-xl shadow hover:shadow-lg transition";
+        card.innerHTML = `
+          <h3 class="text-xl font-bold mb-2">${item.name}</h3>
+          <p><strong>Category:</strong> ${item.category}</p>
+          <p><strong>Price:</strong> ₹${item.price}</p>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Filter items as user types
+    document.getElementById("searchBar").addEventListener("input", (e) => {
+      const query = e.target.value.toLowerCase();
+      const filtered = allItems.filter(item =>
+        item.name.toLowerCase().includes(query) || 
+        item.category.toLowerCase().includes(query)
+      );
+      displayItems(filtered);
+    });
+  </script>
+</body>
+</html>

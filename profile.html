@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile – GreenSwap</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-green-50 text-gray-800 font-sans p-6">
+  <h1 class="text-3xl font-bold mb-6">Your Profile</h1>
+
+  <div id="profile" class="bg-white p-6 rounded-xl shadow-md max-w-xl">
+    <p><strong>Username:</strong> <span id="username"></span></p>
+    <p><strong>Eco Points:</strong> <span id="ecoPoints"></span></p>
+    <h2 class="mt-4 font-semibold text-xl">History</h2>
+    <ul id="history" class="list-disc pl-6"></ul>
+  </div>
+
+  <script>
+    const username = prompt("Enter your username to view profile:");
+    fetch(`/api/user/${username}`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('username').textContent = data.username;
+        document.getElementById('ecoPoints').textContent = data.eco_points;
+        const historyList = document.getElementById('history');
+        data.history.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = `${item.action} ${item.item.name}`;
+          historyList.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>

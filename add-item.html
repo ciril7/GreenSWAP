@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Item – GreenSwap</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-green-50 text-gray-800 font-sans flex items-center justify-center min-h-screen">
+  <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-center">Add Your Item</h2>
+    <form id="addItemForm" class="space-y-4">
+      <input type="text" id="name" placeholder="Item Name" class="w-full p-3 border rounded-lg" required />
+      <input type="text" id="category" placeholder="Category (Books, Gadgets, etc.)" class="w-full p-3 border rounded-lg" required />
+      <input type="number" id="price" placeholder="Price (₹)" class="w-full p-3 border rounded-lg" required />
+      <button type="submit" class="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700">
+        Add Item
+      </button>
+    </form>
+    <p id="responseMessage" class="mt-4 text-center"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById('addItemForm');
+    const responseMessage = document.getElementById('responseMessage');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const category = document.getElementById('category').value;
+      const price = parseFloat(document.getElementById('price').value);
+
+      const res = await fetch('/api/items/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, category, price })
+      });
+      const data = await res.json();
+      responseMessage.textContent = data.message;
+      form.reset();
+    });
+  </script>
+</body>
+</html>
