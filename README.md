@@ -102,15 +102,14 @@ Analytics dashboard for eco-impact metrics
 👥 Contributors
 Fullstack Development & Design
 
-nandu varghese
+1.Nandu Varghese
 
-ciril c reji
+2.Ciril C Reji
 
-nidhisha p raj
+3.Nidhisha P Raj
 
-ajin k jayan
+4.Ajin K Jayan
 
-[Add other team members here if applicable]
 
 📄 License
 
