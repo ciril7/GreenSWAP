@@ -100,8 +100,11 @@ Mobile-friendly responsive design
 Analytics dashboard for eco-impact metrics
 
 👥 Contributors
-
-Nandu – Fullstack Development & Design
+Fullstack Development & Design
+nandu varghese
+ciril c reji
+nidhisha p raj
+ajin k jayan
 
 [Add other team members here if applicable]
 
